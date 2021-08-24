@@ -10,6 +10,7 @@ $color-4: ;*/
 body {
     margin: 0 auto;
     font-family: $font-1;
+    height: 100%;
 }
 
 li {
@@ -19,6 +20,7 @@ li {
 a {
     text-decoration: none;
     cursor: pointer;
+    color: white;
 }
 
 a:visited {
