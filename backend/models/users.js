@@ -7,6 +7,9 @@ const User = function (user) {
     this.email = user.email;
     this.password = user.password;
     this.image = user.image;
-    this.descrip = user.descrip;
+    this.description = user.descrip;
     this.isadmin = user.isadmin;
 };
+
+
+

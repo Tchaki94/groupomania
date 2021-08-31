@@ -1,6 +1,6 @@
 const mysql = require('mysql2');
 
-exports.connect = () => {
+
     const connection = mysql.createConnection({
         host     : process.env.DB_HOST,
         port     : process.env.DB_PORT,
@@ -9,5 +9,8 @@ exports.connect = () => {
         database : process.env.DB_BASENAME,
         charset: 'utf8_general_ci'
   });
-  return connection;
-}
+  //return connection;
+
+
+module.exports = connection;
+
