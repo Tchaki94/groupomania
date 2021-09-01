@@ -4,8 +4,8 @@ const helmet = require('helmet');
 require('dotenv').config();
 const fs = require('fs');
 const mysql = require('mysql2');
-const connection = require('./db/connexion');
-console.log(connection);
+const connection = require('./db/connection');
+//console.log(connection);
 
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post');
@@ -27,13 +27,14 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(helmet());
 
+/*o
 connection.execute(
     'SELECT * FROM `users`',
     function(err, results, fields){
         console.log("results", results);
     }
 );
-/*connection.connect();
+connection.connect();
 
 connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
   if (err) throw err;
