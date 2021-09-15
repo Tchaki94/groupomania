@@ -9,8 +9,7 @@ const connection = mysql.createConnection({
     database : process.env.DB_BASENAME,
     charset: 'utf8_general_ci'
 });
-return connection;
 
 
-module.exports = connection;
 
+module.exports = connection; 

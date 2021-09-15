@@ -27,7 +27,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(helmet());
 
-/*o
+
 connection.execute(
     'SELECT * FROM `users`',
     function(err, results, fields){
@@ -41,7 +41,7 @@ connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
   console.log('The solution is: ', rows[0].solution);
 });
 
-connection.end();*/
+//connection.end();
 
 app.use('/api/user', userRoutes);
 app.use('/api/post', postRoutes);
