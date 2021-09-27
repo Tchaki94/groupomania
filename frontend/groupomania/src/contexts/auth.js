@@ -1,15 +1,15 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
+import Navbar from '../components/Navbar';
 
 
-const auth = () => {
+const Auth = (props) => {
     return (
         <div className="auth">
-            <Navigation />
+            <Navbar />
             <h1>Authentification</h1>
-
+            {props.children}
         </div>
     );
 };
 
-export default auth;
+export default Auth;

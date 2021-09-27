@@ -15,9 +15,9 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
   return (
     <Auth.Provider value={{isAuthenticated, setIsAuthenticated}}>
-    <HashRouter>
+      <HashRouter>
         <div className="container">
-          
+          <Navbar />
           <Switch>
             <Route path="/" exact component={Home} /> 
             <Route path="/register" exact component={Register} />
@@ -27,8 +27,7 @@ function App() {
           </Switch>
         </div>
       </HashRouter>
-      </Auth.Provider>
-
+    </Auth.Provider>
   );
 }
 

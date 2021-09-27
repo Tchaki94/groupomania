@@ -1,10 +1,9 @@
 import React from 'react';
-import Navigation from '../../components/Navigation';
+
 
 const Register = () => {
     return (
         <div>
-            <Navigation />
             <div className="tab-content">
                 <form className="form-profile">
                     <fieldset>
