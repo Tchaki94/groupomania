@@ -45,9 +45,10 @@ const Login = (props) => {
 
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(name, password).then(
-        () => {
+        (response) => {
+          console.log(response);
           props.history.push("/profile");
-          window.location.reload();
+          //window.location.reload();
         },
         (error) => {
           const resMessage =
