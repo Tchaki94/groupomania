@@ -1,47 +1,57 @@
 const database = require ('../db/connection');
+const Post = require('../models/posts');
 
 exports.createPost = ( req, res, next) => {
 
-    const titre = req.body.titre;
     const descrip = req.body.descrip;
-    const date_pub = req.body.date_pub;
     const user_id = req.body.user_id;
+    const titre = req.body.titre;
 
-    database.query('INSERT INTO post (titre,descrip,date_pub,user_id) VALUES (?,?,now(),?)', [titre, descrip, date_pub, user_id], 
-    function(err, results) {
-      if(err) {
-        res.status(500).json({message : " Post non crée", error:err})
-      }
-      res.status(201).json({message: "Post crée avec succès", results});
+    Post.createPost({
+        descrip,
+        user_id,
+        titre
+    }, (err, data) => {
+        if(err){
+            return res.status(500).send({message: err.message})
+        }
+        return res.status(201).send(data);
+            
     })
+    
 }
 
 exports.modifyPost = (req, res, next) => {
 
-    const titre = req.body.titre;
     const descrip = req.body.descrip;
     const id = req.params.id;
     const user_id = req.body.user_id;
+    const titre = req.body.titre;
 
-    database.query('UPDATE post SET titre = ?, descrip = ? WHERE id', [titre, descrip, id, user_id], 
-    function (err, results) {
-        if ( err || results.affectedRows == 0) {  // affectedrow methode mysql qui renvoi le nombre de ligne modifié supr ou inseret
-            res.status(500).json({message: "Post non modifié", error:err})
+    Post.modifyPost({
+        descrip,
+        id,
+        user_id,
+        titre
+    }, (err, data) => {
+        if ( err ) {  
+            return res.status(500).send({message: err.message})
         }
-        res.status(200).json({message: "Post modifié avec succès", results})
+        return res.status(201).send(data)
     })
 }
 
 exports.deletePost = (req, res, next) => {
 
     const id = req.params.id;
-
-    database.query('DELETE FROM post WHERE id = ?', [id], 
-    function (err, results) {
-        if (err || results.affectedRows == 0) {
-            res.status(500).json({message: "Post non suprimé", error:err})
+ 
+    Post.deletePost({
+        id
+    }, (err, data) => {
+        if (err) {
+            return res.status(500).send({message: err.message})
         }
-        res.status(200).json({message: "Post suprimé avec succès"})
+        res.status(200).send(data)
     })
 }
 
@@ -49,12 +59,13 @@ exports.getAllPost = (req, res, next) => {
 
     const id = req.params.id;
 
-    database.query('SELECT * FROM post ORDER BY post.user_id = ?', [id], 
-    function (err, results) {
-        if (results.length === 0) {
-            res.status(404).json({message: " Aucun Post", error:err})
+    Post.getAllPost({
+        id
+    }, (err, data) => {
+        if (err) {
+            return res.status(404).send({message: err.message})
         }
-        res.status(200).json({message:"Les post ont été trouvé", results})
+        return res.status(200).send(data)
     })
 }
 
@@ -62,11 +73,12 @@ exports.getOnePost = (req, res, next) => {
 
     const id = req.params.id;
 
-    database.query('SELECT * FROM post WHERE id = ?', [id], 
-    function (err, results) {
-        if (results.length === 0) {
-            res.status(404).json({ message: "Post non trouvé", error:err})
+    Post.getOnePost({
+        id
+    }, (err, data) => {
+        if (err) {
+            return res.status(404).send({ message: err.message})
         }
-        res.status(200).json({message: "Post trouvé avec succès" , results})
+        return res.status(200).send(data)
     })
 }

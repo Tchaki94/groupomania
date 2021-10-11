@@ -1,16 +1,20 @@
 const database = require ('../db/connection');
+const Comment = require('../models/comment');
 
 exports.createComment = (req, res, next) => {
 
     const user_id = req.body.user_id;
-    const comment = req.body.comment;
     const post_id = req.body.post_id;
+    const comment = req.body.comment;
 
-    database.query('INSERT INTO commentaires (user_id, comment, post_id) VALUES (?,?,?)', [user_id, comment, post_id], 
-    function (err, results) {
+    Comment.createComment({
+        user_id,
+        post_id,
+        comment
+    }, (err, data) => {
         if (err) {
-            res.status(500).json({message: "Commentaire non créé", error:err})
+            return res.status(500).send({message:  erro.message})
         }
-        res.status(200).json({message: "Commentaire créé avec succès", results})
+        return res.status(200).send(data)
     })
 }
