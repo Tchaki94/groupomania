@@ -2,15 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import logo from './img/logo.png';
 
+import { BrowserRouter as Router } from "react-router-dom";
 import AuthService from "./services/auth.service";
 
-import Home from "./components/Home";
-import Login from "./components/Login";
-import Profile from "./components/Profile";
-import Register from "./components/Register";
+import Profile from "./pages/Profile";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Posts from "./pages/Post"
 
-import BoardUser from "./components/BoardUser";
+import BoardUser from "./components/Users/BoardUser";
 
 import EventBus from "./common/EventBus";
 
@@ -41,11 +44,10 @@ const App = () => {
 
 
     return (
-      <div>
+      <Router>
         <nav className="navbar navbar-expand">
-          <Link to={"/"} className="navbar-brand">
-            Groupomania
-          </Link>
+          <img className="img-groupo" alt="logo" src={logo}
+          ></img>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/home"} className="nav-link">
@@ -54,11 +56,18 @@ const App = () => {
             </li>
   
             {currentUser && (
+              <div className="navbar-nav ml-auto">
               <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
-                  User
+                  Profil
                 </Link>
               </li>
+              <li>
+                <Link to={"/post"} className="nav-link">
+                Post
+                </Link>
+              </li>
+              </div>
             )}
           </div>
   
@@ -95,15 +104,16 @@ const App = () => {
         <div className="container mt-3">
           <Switch>
             <Route exact path={["/", "/home"]} component={Home} />
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/login" render={(props) => <Login  {...props} set={setCurrentUser} /> } />
             <Route exact path="/register" component={Register} />
             <Route exact path="/profile" component={Profile} />
+            <Route exact path="/post" component={Posts} />
             <Route path="/user" component={BoardUser} />
           </Switch>
         </div>
   
         {/* <AuthVerify logOut={logOut}/> */}
-      </div>
+      </Router>
     );
 }
 

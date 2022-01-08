@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 //require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
+const fs = require("fs");
 
 
 
@@ -65,7 +66,6 @@ exports.login = (req, res) => {
     })  
 })
 }
-
 
 
 //supression compte ( deleteProfil )

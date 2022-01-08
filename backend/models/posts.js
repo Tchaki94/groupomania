@@ -10,7 +10,7 @@ const Post = function (post) {
 }
 
 Post.createPost = (newPost, callback) => {
-    connection.query('INSERT INTO post (descrip,date_pub,user_id,titre) VALUES (?,NOW(),?,?)', [newPost.descrip, newPost.user_id, newPost.titre], (err, res) => {
+    connection.query('INSERT INTO post (descrip,date_pub,user_id,titre) VALUES (?,?,NOW(),?,?)', [newPost.descrip, newPost.user_id, newPost.titre], (err, res) => {
         if (err){
             throw err
         }
